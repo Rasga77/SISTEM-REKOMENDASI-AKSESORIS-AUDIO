@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Tambah Produk</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">Tambah Produk Aksesoris Audio</h2>
+        <form method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label>Nama Produk</label>
+                <input type="text" name="nama" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label>Deskripsi</label>
+                <textarea name="deskripsi" class="form-control" rows="3" required></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label>Kategori</label>
+                <select name="kategori" class="form-select" required>
+                    <option value="" disabled selected>Pilih Kategori</option>
+                    <option value="Headphone">Headphone</option>
+                    <option value="Speaker Bluetooth">Speaker Bluetooth</option>
+                    <option value="Earphone">Earphone</option>
+                    <option value="Soundcard">Soundcard</option>
+                    <option value="Audio Interface">Audio Interface</option>
+                    <option value="Aksesoris Kabel">Aksesoris Kabel</option>
+                    <option value="Lainnya">Lainnya</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label>Harga</label>
+                <input type="number" step="any" name="harga" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label>Tags (pisahkan dengan koma)</label>
+                <input type="text" name="tags" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label>Gambar Produk</label>
+                <input type="file" name="gambar" class="form-control" accept="image/*" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Simpan</button>
+            <a href="{{ url_for('admin.index') }}" class="btn btn-secondary">Kembali</a>
+        </form>
+    </div>
+</body>
+
+</html>

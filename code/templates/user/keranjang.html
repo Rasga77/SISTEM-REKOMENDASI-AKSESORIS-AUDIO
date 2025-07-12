@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Keranjang Belanja Anda - AudioStore</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .product-img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .card-cart {
+            transition: box-shadow 0.2s;
+        }
+
+        .card-cart:hover {
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+        }
+
+        .btn-remove {
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('user.index') }}">← AudioStore</a>
+            <div class="d-flex">
+                <a href="{{ url_for('auth.logout') }}" class="btn btn-outline-light btn-sm">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h3 class="mb-4">Keranjang Belanja Anda</h3>
+
+        {% if keranjang %}
+        <div class="list-group">
+            {% for item in keranjang %}
+            <div class="list-group-item d-flex align-items-center card-cart">
+                <img src="{{ url_for('static', filename='uploads/' ~ item.gambar) }}" class="product-img me-3">
+                <div class="flex-grow-1">
+                    <h5 class="mb-1">{{ item.nama }}</h5>
+                    <p class="mb-0 text-muted">{{ item.kategori }}</p>
+                    <p class="mb-0 text-primary fw-bold">Rp{{ "{:,.0f}".format(item.harga|float) }}</p>
+                </div>
+                <div class="text-end d-flex flex-column gap-2">
+                    <form method="post"
+                        action="{{ url_for('user.beli_dari_keranjang_per_produk', produk_id=item._id) }}">
+                        <button type="submit" class="btn btn-success btn-sm">Beli</button>
+                    </form>
+                    <form method="post" action="{{ url_for('user.hapus_keranjang', produk_id=item._id) }}">
+                        <button type="submit" class="btn btn-danger btn-sm btn-remove">Hapus</button>
+                    </form>
+                </div>
+            </div>
+
+            {% endfor %}
+        </div>
+
+        {% else %}
+        <div class="alert alert-info">Keranjang Anda masih kosong.</div>
+        {% endif %}
+    </div>
+
+    <footer class="text-center mt-5 text-muted mb-4">
+        &copy; 2025 AudioStore - E-Commerce Aksesoris Audio
+    </footer>
+</body>
+
+</html>
